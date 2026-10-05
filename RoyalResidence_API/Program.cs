@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using RoyalResidence_API.Controllers.Data;
+using RoyalResidence_API.Models;
+using RoyalResidence_API.Models.DTO;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
-
+builder.Services.AddAutoMapper(o =>
+{
+    o.CreateMap<ResidenceCreateDTO, Residence>().ReverseMap();
+    o.CreateMap<ResidenceUpdateDTO, Residence>().ReverseMap();
+});
 var app = builder.Build();
 await SeedDataAsync(app);
 // Configure the HTTP request pipeline.
