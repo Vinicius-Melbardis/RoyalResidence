@@ -12,7 +12,7 @@ namespace RoyalResidence_API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20261003203054_initial")]
-    partial class initial
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
