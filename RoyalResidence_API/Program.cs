@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using RoyalResidence_API.Controllers.Data;
 using RoyalResidence_API.Models;
 using RoyalResidence_API.Models.DTO;
+using RoyalResidence_API.Services;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,9 @@ builder.Services.AddAutoMapper(o =>
     o.CreateMap<ResidenceUpdateDTO, ResidenceDTO>().ReverseMap();
     o.CreateMap<User, UserDTO>().ReverseMap();
 });
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+
 var app = builder.Build();
 await SeedDataAsync(app);
 // Configure the HTTP request pipeline.
