@@ -4,10 +4,10 @@ namespace RoyalResidence_API.Services
 {
     public interface IAuthService
     {
-        Task<UserDTO?> RegisterAsync(RegistrationRequestDTO registrationRequestDTO)
+        Task<UserDTO?> RegisterAsync(RegistrationRequestDTO registrationRequestDTO);
 
-        Task<LoginResponseDTO?> LoginAsync(LoginRequestDTO loginRequestDTO)
+        Task<LoginResponseDTO?> LoginAsync(LoginRequestDTO loginRequestDTO);
 
-        Task<bool> IsEmailExistsAsync(string email)
+        Task<bool> IsEmailExistsAsync(string email);
     }
 }
