@@ -1,19 +1,25 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using RoyalResidence_API.Controllers.Data;
 using RoyalResidence_API.Models;
 using RoyalResidence_API.Models.DTO;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace RoyalResidence_API.Services
 {
     public class AuthService : IAuthService
     {
         private readonly ApplicationDbContext _db;
+        private readonly IConfiguration _configuration;
         private readonly IMapper _mapper;
 
         public AuthService(ApplicationDbContext db,IConfiguration configuration, IMapper mapper)
         {
             _db = db;
+            _configuration = configuration;
             _mapper = mapper;
         }
 
@@ -22,9 +28,30 @@ namespace RoyalResidence_API.Services
             return await _db.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public Task<LoginResponseDTO?> LoginAsync(LoginRequestDTO loginRequestDTO)
+        public async Task<LoginResponseDTO?> LoginAsync(LoginRequestDTO loginRequestDTO)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var user = await _db.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == loginRequestDTO.Email.ToLower());
+
+                if (user == null || user.Password != loginRequestDTO.Password)
+                {
+                    return null;
+                }
+
+                // Generate JWT token
+                var token = GenerateJwtToken(user);
+                return new LoginResponseDTO
+                {
+                    UserDTO = _mapper.Map<UserDTO>(user),
+                    Token = token
+                };
+            }
+            catch (Exception ex)
+            {
+                // Handle any other unexpected errors
+                throw new InvalidOperationException("An unexpected error occurred during user login", ex);
+            }
         }
 
         public async Task<UserDTO?> RegisterAsync(RegistrationRequestDTO registrationRequestDTO)
@@ -55,6 +82,27 @@ namespace RoyalResidence_API.Services
                 // Handle any other unexpected errors
                 throw new InvalidOperationException("An unexpected error occurred during user registration", ex);
             }
+        }
+
+        private string GenerateJwtToken(User user)
+        {
+            var key = Encoding.ASCII.GetBytes(_configuration.GetSection("JwtSettings")["Secret"]);
+
+            var tokenDescriptor = new SecurityTokenDescriptor{
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier,user.Id.ToString()),
+                    new Claim(ClaimTypes.Email,user.Email),
+                    new Claim(ClaimTypes.Name,user.Name),
+                    new Claim(ClaimTypes.Role,user.Role),
+                }),
+                Expires = DateTime.UtcNow.AddDays(7),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
     }
 }
