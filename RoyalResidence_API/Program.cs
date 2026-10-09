@@ -20,6 +20,7 @@ builder.Services.AddAutoMapper(o =>
     o.CreateMap<ResidenceUpdateDTO, Residence>().ReverseMap();
     o.CreateMap<Residence, ResidenceDTO>().ReverseMap();
     o.CreateMap<ResidenceUpdateDTO, ResidenceDTO>().ReverseMap();
+    o.CreateMap<User, UserDTO>().ReverseMap();
 });
 var app = builder.Build();
 await SeedDataAsync(app);
