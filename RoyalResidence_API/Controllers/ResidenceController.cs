@@ -5,11 +5,13 @@ using Microsoft.EntityFrameworkCore;
 using RoyalResidence_API.Models.DTO;
 using System.Data;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RoyalResidence_API.Controllers
 {
     [Route("api/residence")]
     [ApiController]
+    // [Authorize(Roles = "Customer, Admin")]
     public class ResidenceController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -22,6 +24,7 @@ namespace RoyalResidence_API.Controllers
         }
 
         [HttpGet]
+        // [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(ApiResponse<IEnumerable<ResidenceDTO>>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
 
@@ -34,6 +37,7 @@ namespace RoyalResidence_API.Controllers
         }
 
         [HttpGet("{id:int}")]
+        // [AllowAnonymous]
         [ProducesResponseType(typeof(ApiResponse<ResidenceDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status404NotFound)]
