@@ -7,6 +7,7 @@ namespace RoyalResidence_API.Controllers.Data
     {
         public DbSet<Residence> Residences { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<ResidenceAmenities> ResidenceAmenities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

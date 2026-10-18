@@ -1,0 +1,17 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace RoyalResidence_API.Models.DTO
+{
+    public class ResidenceAmenitiesCreateDTO
+    {
+        [Required]
+        [MaxLength(100)]
+        public required string Name { get; set; }
+
+        public string? Description { get; set; }
+
+        [Required]
+        public int ResidenceId { get; set; }
+    }
+}

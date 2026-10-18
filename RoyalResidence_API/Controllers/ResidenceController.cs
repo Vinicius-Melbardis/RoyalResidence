@@ -70,7 +70,7 @@ namespace RoyalResidence_API.Controllers
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status409Conflict)]
         [ProducesResponseType(typeof(ApiResponse<object>), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ApiResponse<ResidenceCreateDTO>>> CreateResidence(ResidenceCreateDTO residenceDTO)
+        public async Task<ActionResult<ApiResponse<ResidenceDTO>>> CreateResidence(ResidenceCreateDTO residenceDTO)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace RoyalResidence_API.Controllers
                 await _db.SaveChangesAsync();
 
                 var response = ApiResponse<ResidenceDTO>.CreatedAt(_mapper.Map<ResidenceDTO>(residence), "Residence created successfully");
-                return CreatedAtAction(nameof(GetResidencesById), new { id = residence.Id }, response);
+                return CreatedAtAction(nameof(CreateResidence), new { id = residence.Id }, response);
             }
 
             catch (Exception ex)

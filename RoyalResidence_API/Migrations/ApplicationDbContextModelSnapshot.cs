@@ -17,7 +17,7 @@ namespace RoyalResidence_API.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "10.0.12")
+                .HasAnnotation("ProductVersion", "10.0.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -122,6 +122,38 @@ namespace RoyalResidence_API.Migrations
                         });
                 });
 
+            modelBuilder.Entity("RoyalResidence_API.Models.ResidenceAmenities", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("ResidenceId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResidenceId");
+
+                    b.ToTable("ResidenceAmenities");
+                });
+
             modelBuilder.Entity("RoyalResidence_API.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -157,6 +189,22 @@ namespace RoyalResidence_API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RoyalResidence_API.Models.ResidenceAmenities", b =>
+                {
+                    b.HasOne("RoyalResidence_API.Models.Residence", "Residence")
+                        .WithMany("Amenities")
+                        .HasForeignKey("ResidenceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Residence");
+                });
+
+            modelBuilder.Entity("RoyalResidence_API.Models.Residence", b =>
+                {
+                    b.Navigation("Amenities");
                 });
 #pragma warning restore 612, 618
         }
