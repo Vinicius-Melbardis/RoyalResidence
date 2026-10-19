@@ -31,4 +31,8 @@
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="10.0.13" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RoyalResidence.DTO\RoyalResidence.DTO.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RoyalResidence_API.Controllers.Data;
 using RoyalResidence_API.Models;
-using RoyalResidence_API.Models.DTO;
+using RoyalResidence.DTO;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

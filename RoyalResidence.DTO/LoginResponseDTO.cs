@@ -1,4 +1,4 @@
-﻿namespace RoyalResidence_API.Models.DTO
+﻿namespace RoyalResidence.DTO
 {
     public class LoginResponseDTO
     {

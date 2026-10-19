@@ -1,4 +1,4 @@
-﻿using RoyalResidence_API.Models.DTO;
+﻿using RoyalResidence.DTO;
 
 namespace RoyalResidence_API.Services
 {

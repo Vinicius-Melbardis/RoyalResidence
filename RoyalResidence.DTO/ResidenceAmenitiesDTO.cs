@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace RoyalResidence_API.Models.DTO
+namespace RoyalResidence.DTO
 {
-    public class ResidenceAmenitiesUpdateDTO
+    public class ResidenceAmenitiesDTO
     {
         [Key]
         public int Id { get; set; }
@@ -16,5 +16,7 @@ namespace RoyalResidence_API.Models.DTO
 
         [Required]
         public int ResidenceId { get; set; }
+
+        public string? ResidenceName { get; set; }
     }
 }

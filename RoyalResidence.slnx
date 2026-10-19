@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="RoyalResidence.DTO/RoyalResidence.DTO.csproj" Id="e8725904-76e1-4564-b70c-e786ce97ce21" />
+  <Project Path="RoyalResidenceWeb/RoyalResidenceWeb.csproj" Id="4c39d8bf-4459-49fc-b7c0-119fc2f4e8ab" />
   <Project Path="RoyalResidence_API/RoyalResidence_API.csproj" />
 </Solution>

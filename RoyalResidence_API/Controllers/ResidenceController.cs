@@ -2,7 +2,7 @@
 using RoyalResidence_API.Controllers.Data;
 using RoyalResidence_API.Models;
 using Microsoft.EntityFrameworkCore;
-using RoyalResidence_API.Models.DTO;
+using RoyalResidence.DTO;
 using System.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;

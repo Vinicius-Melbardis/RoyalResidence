@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RoyalResidence.DTO;
 using RoyalResidence_API.Controllers.Data;
-using RoyalResidence_API.Models.DTO;
 using RoyalResidence_API.Services;
 
 namespace RoyalResidence_API.Controllers

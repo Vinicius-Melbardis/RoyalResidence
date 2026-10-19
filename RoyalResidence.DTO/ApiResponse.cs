@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace RoyalResidence_API.Models.DTO
+namespace RoyalResidence.DTO
 {
     public class ApiResponse<TData>
     {
