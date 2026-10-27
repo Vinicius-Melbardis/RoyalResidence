@@ -8,15 +8,17 @@ namespace RoyalResidenceWeb.Services
     public class BaseService : IBaseService
     {
         public IHttpClientFactory _httpClient { get; set; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private static readonly JsonSerializerOptions JsonOptions = new()
         {
             PropertyNameCaseInsensitive = true
         };
         public ApiResponse<object> ResponseModel { get; set; }
-        public BaseService(IHttpClientFactory httpClient)
+        public BaseService(IHttpClientFactory httpClient, IHttpContextAccessor httpContextAccessor)
         {
             this.ResponseModel = new();
             _httpClient = httpClient;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<T?> SendAsync<T>(ApiRequest apiRequest)
