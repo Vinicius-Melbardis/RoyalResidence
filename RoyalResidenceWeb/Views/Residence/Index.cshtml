@@ -42,124 +42,128 @@
     }
     else
     {
-        <!-- Residence Table -->
-        <div class="card">
-            <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table table-hover mb-0">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Image</th>
-                                <th>Name</th>
-                                <th>Details</th>
-                                <th>Rate</th>
-                                <th>Occupancy</th>
-                                <th>Sqm</th>
-                                <th class="text-center">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var residence in Model)
-                            {
-                            <tr>
-                                <td>
-                                    @if (!string.IsNullOrEmpty(residence.ImageUrl))
-                                        {
-                                            <img src="@residence.ImageUrl" class="rounded" style="width: 60px; height: 45px; object-fit: cover;">
-                                        }
-                                        else
-                                        {
-                                            <div class="bg-secondary rounded d-flex align-items-center justify-content-center text-white"
-                                            style="width: 60px; height: 45px;">
-                                                <i class="bi bi-image"></i>
-                                            </div>
-                                        }
-                                </td>
-                                <td class="align-middle">
-                                    <strong>@residence.Name</strong>
-                                </td>
-                                <td class="align-middle">
-                                    <small class="text-muted">
-                                        @if(string.IsNullOrEmpty(residence.Details))
+        @if (Model.Count() > 0)
+        {
+            <!-- Residence Table -->
+            <div class="card">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Details</th>
+                                    <th>Rate</th>
+                                    <th>Occupancy</th>
+                                    <th>Sqm</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var residence in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(residence.ImageUrl))
                                             {
-                                                <span class="fst-italic">No details</span>
+                                                <img src="@residence.ImageUrl" class="rounded" style="width: 60px; height: 45px; object-fit: cover;">
                                             }
                                             else
                                             {
-                                                @(residence.Details.Length > 50 ? residence.Details.Substring(0, 50) + "..." : residence.Details)
+                                                <div class="bg-secondary rounded d-flex align-items-center justify-content-center text-white"
+                                                     style="width: 60px; height: 45px;">
+                                                    <i class="bi bi-image"></i>
+                                                </div>
                                             }
-                                        </small>
-                                </td>
-                                <td class="align-middle">
-                                    <span class="badge bg-success">$@residence.Rate.ToString("N0")</span>
-                                </td>
-                                <td class="align-middle">
-                                    <i class="bi bi-people me-1"></i>@residence.Occupancy
-                                </td>
-                                <td class="align-middle">
-                                    <i class="bi bi-rulers me-1"></i>@residence.Sqm
-                                </td>
-                                <td class="align-middle text-center">
-                                    <div class="btn-group btn-group-sm">
+                                        </td>
+                                        <td class="align-middle">
+                                            <strong>@residence.Name</strong>
+                                        </td>
+                                        <td class="align-middle">
+                                            <small class="text-muted">
+                                                @if (string.IsNullOrEmpty(residence.Details))
+                                                {
+                                                    <span class="fst-italic">No details</span>
+                                                }
+                                                else
+                                                {
+                                                    @(residence.Details.Length > 50 ? residence.Details.Substring(0, 50) + "..." : residence.Details)
+                                                }
+                                            </small>
+                                        </td>
+                                        <td class="align-middle">
+                                            <span class="badge bg-success">$@residence.Rate.ToString("N0")</span>
+                                        </td>
+                                        <td class="align-middle">
+                                            <i class="bi bi-people me-1"></i>@residence.Occupancy
+                                        </td>
+                                        <td class="align-middle">
+                                            <i class="bi bi-rulers me-1"></i>@residence.Sqm
+                                        </td>
+                                        <td class="align-middle text-center">
+                                            <div class="btn-group btn-group-sm">
 
-                                        <a asp-action="edit" asp-route-id="@residence.Id"
-                                        class="btn btn-outline-warning" title="Edit">
-                                            <i class="bi bi-pencil"></i>
-                                        </a>
-                                        <a asp-action="delete" asp-route-id="@residence.Id"
-                                        class="btn btn-outline-danger" title="Delete">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
+                                                <a asp-action="edit" asp-route-id="@residence.Id"
+                                                   class="btn btn-outline-warning" title="Edit">
+                                                    <i class="bi bi-pencil"></i>
+                                                </a>
+                                                <a asp-action="delete" asp-route-id="@residence.Id"
+                                                   class="btn btn-outline-danger" title="Delete">
+                                                    <i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-    <!-- Summary -->
-    <div class="row mt-5 mb-5">
-        <div class="col-12">
-            <div class="card shadow-lg border-0 stats-card">
-                <div class="card-body p-4">
-                    <h3 class="text-center mb-4 fw-bold">At a Glance</h3>
-                    <div class="row text-center g-4">
-                        <div class="col-md-3">
-                            <div class="stat-item">
-                                <i class="bi bi-house-heart-fill text-primary fs-1 mb-3"></i>
-                                <h3 class="text-primary fw-bold mb-1">@Model.Count()</h3>
-                                <p class="text-muted mb-0">Total Residences</p>
+        }
+        <!-- Summary -->
+        <div class="row mt-5 mb-5">
+            <div class="col-12">
+                <div class="card shadow-lg border-0 stats-card">
+                    <div class="card-body p-4">
+                        <h3 class="text-center mb-4 fw-bold">At a Glance</h3>
+                        <div class="row text-center g-4">
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    <i class="bi bi-house-heart-fill text-primary fs-1 mb-3"></i>
+                                    <h3 class="text-primary fw-bold mb-1">@Model.Count()</h3>
+                                    <p class="text-muted mb-0">Total Residences</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="stat-item">
-                                <i class="bi bi-cash-coin text-success fs-1 mb-3"></i>
-                                <h3 class="text-success fw-bold mb-1">$@Model.Min(v => v.Rate).ToString("N0")</h3>
-                                <p class="text-muted mb-0">Starting From</p>
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    <i class="bi bi-cash-coin text-success fs-1 mb-3"></i>
+                                    <h3 class="text-success fw-bold mb-1">$@Model.Min(v => v.Rate).ToString("N0")</h3>
+                                    <p class="text-muted mb-0">Starting From</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="stat-item">
-                                <i class="bi bi-people-fill text-info fs-1 mb-3"></i>
-                                <h3 class="text-info fw-bold mb-1">@Model.Max(v => v.Occupancy)</h3>
-                                <p class="text-muted mb-0">Max Occupancy</p>
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    <i class="bi bi-people-fill text-info fs-1 mb-3"></i>
+                                    <h3 class="text-info fw-bold mb-1">@Model.Max(v => v.Occupancy)</h3>
+                                    <p class="text-muted mb-0">Max Occupancy</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="stat-item">
-                                <i class="bi bi-arrows-fullscreen text-warning fs-1 mb-3"></i>
-                                <h3 class="text-warning fw-bold mb-1">@Model.Sum(v => v.Sqm).ToString("N0")</h3>
-                                <p class="text-muted mb-0">Total Sqm</p>
+                            <div class="col-md-3">
+                                <div class="stat-item">
+                                    <i class="bi bi-arrows-fullscreen text-warning fs-1 mb-3"></i>
+                                    <h3 class="text-warning fw-bold mb-1">@Model.Sum(v => v.Sqm).ToString("N0")</h3>
+                                    <p class="text-muted mb-0">Total Sqm</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    }
+    
 </div>
 
 <style>

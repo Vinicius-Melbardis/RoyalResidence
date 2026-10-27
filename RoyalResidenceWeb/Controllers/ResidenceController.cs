@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using RoyalResidence.DTO;
@@ -24,7 +25,7 @@ namespace RoyalResidenceWeb.Controllers
             List<ResidenceDTO> residenceList = new();
             try
             {
-                var response = await _residenceService.GetAllAsync<ApiResponse<List<ResidenceDTO>>>("");
+                var response = await _residenceService.GetAllAsync<ApiResponse<List<ResidenceDTO>>>();
                 if(response != null && response.Success && response.Data != null)
                 {
                     residenceList = response.Data;
@@ -38,12 +39,14 @@ namespace RoyalResidenceWeb.Controllers
             return View(residenceList);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ResidenceCreateDTO createDTO)
         {
@@ -54,7 +57,7 @@ namespace RoyalResidenceWeb.Controllers
 
             try
             {
-                var response = await _residenceService.CreateAsync<ApiResponse<ResidenceDTO>>(createDTO, "");
+                var response = await _residenceService.CreateAsync<ApiResponse<ResidenceDTO>>(createDTO);
                 if (response != null && response.Success && response.Data != null)
                 {
                     TempData["success"] = "Residence created successfully";
@@ -69,6 +72,7 @@ namespace RoyalResidenceWeb.Controllers
             return View(createDTO);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             if (id <= 0)
@@ -78,7 +82,7 @@ namespace RoyalResidenceWeb.Controllers
             }
             try
             {
-                var response = await _residenceService.GetAsync<ApiResponse<ResidenceDTO>>(id, "");
+                var response = await _residenceService.GetAsync<ApiResponse<ResidenceDTO>>(id);
                 if (response != null && response.Success && response.Data != null)
                 {
                     return View(_mapper.Map<ResidenceUpdateDTO>(response.Data));
@@ -94,12 +98,13 @@ namespace RoyalResidenceWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ResidenceUpdateDTO updateDTO)
         {
             try
             {
-                var response = await _residenceService.UpdateAsync<ApiResponse<object>>(updateDTO, "");
+                var response = await _residenceService.UpdateAsync<ApiResponse<object>>(updateDTO);
                 if (response != null && response.Success && response.Data != null)
                 {
                     TempData["success"] = "Residence updated successfully";
@@ -113,6 +118,7 @@ namespace RoyalResidenceWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int id)
         {
             if (id <= 0)
@@ -122,7 +128,7 @@ namespace RoyalResidenceWeb.Controllers
             }
             try
             {
-                var response = await _residenceService.GetAsync<ApiResponse<ResidenceDTO>>(id, "");
+                var response = await _residenceService.GetAsync<ApiResponse<ResidenceDTO>>(id);
                 if (response != null && response.Success && response.Data != null)
                 {
                     return View(response.Data);
@@ -138,12 +144,13 @@ namespace RoyalResidenceWeb.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(ResidenceDTO residenceDTO)
         {
             try
             {
-                var response = await _residenceService.DeleteAsync<ApiResponse<object>>(residenceDTO.Id, "");
+                var response = await _residenceService.DeleteAsync<ApiResponse<object>>(residenceDTO.Id);
                 if (response != null && response.Success && response.Data != null)
                 {
                     TempData["success"] = "Residence deleted successfully";

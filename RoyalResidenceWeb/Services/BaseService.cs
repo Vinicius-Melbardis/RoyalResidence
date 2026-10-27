@@ -1,6 +1,7 @@
 ﻿using RoyalResidence.DTO;
 using RoyalResidenceWeb.Models;
 using RoyalResidenceWeb.Services.IServices;
+using System.Net.Http.Headers;
 using System.Text.Json;
 
 namespace RoyalResidenceWeb.Services
@@ -31,6 +32,12 @@ namespace RoyalResidenceWeb.Services
                     RequestUri = new Uri(apiRequest.Url, uriKind:UriKind.Relative),
                     Method = GetHttpMethod(apiRequest.ApiType),
                 };
+
+                var token = _httpContextAccessor.HttpContext?.Session?.GetString(SD.SessionToken);
+                if (!string.IsNullOrEmpty(token))
+                {
+                    message.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
+                }
 
                 if(apiRequest.Data != null)
                 {

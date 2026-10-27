@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RoyalResidence.DTO;
 using RoyalResidenceWeb.Models;
@@ -23,7 +24,7 @@ namespace RoyalResidenceWeb.Controllers
             List<ResidenceDTO> residenceList = new();
             try
             {
-                var response = await _residenceService.GetAllAsync<ApiResponse<List<ResidenceDTO>>>("");
+                var response = await _residenceService.GetAllAsync<ApiResponse<List<ResidenceDTO>>>();
                 if(response != null && response.Success && response.Data != null)
                 {
                     residenceList = response.Data;
