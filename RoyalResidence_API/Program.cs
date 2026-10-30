@@ -2,13 +2,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
-using RoyalResidence_API.Controllers.Data;
 using RoyalResidence_API.Models;
 using RoyalResidence.DTO;
 using RoyalResidence_API.Services;
 using Scalar.AspNetCore;
 using System.Text;
 using System.Security.Claims;
+using RoyalResidence_API.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("JwtSettings")["Secret"]);

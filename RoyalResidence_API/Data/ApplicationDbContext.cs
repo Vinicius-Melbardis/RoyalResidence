@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RoyalResidence_API.Models;
 
-namespace RoyalResidence_API.Controllers.Data
+namespace RoyalResidence_API.Data
 {
     public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
     {

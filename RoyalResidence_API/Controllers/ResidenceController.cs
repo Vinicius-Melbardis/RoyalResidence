@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using RoyalResidence_API.Controllers.Data;
 using RoyalResidence_API.Models;
 using Microsoft.EntityFrameworkCore;
 using RoyalResidence.DTO;
 using System.Data;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using RoyalResidence_API.Data;
 
 namespace RoyalResidence_API.Controllers
 {
